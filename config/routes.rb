@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :near_asteroids, only: [:index, :show]
+  resources :tech_transfer, only: [:index]
+  resources :astronomy, only: [:index]
 end

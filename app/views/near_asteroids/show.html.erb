@@ -1,0 +1,11 @@
+<h1><%= @asteroid_info['name'] %></h1>
+
+<h4>Close Approach Date</h4>
+    <% @asteroid_info['close_approach_data'].each do |approach_date| %>
+        <ul>
+            <li>
+                <%= approach_date["close_approach_date_full"] %>
+            </li>
+        </ul>
+    <% end %>
+
