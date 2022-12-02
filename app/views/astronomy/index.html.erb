@@ -1,9 +1,10 @@
 <h1> Astronomy Random Picture by NASA api </h1>
 
-
 <img src=<%= @astronomy[0]['hdurl'] %> alt="astronomy picture">
 <div>
     <h5>Caption:</h5>
     <p><%= @astronomy[0]['explanation'] %></p>
 </div>
+<%= link_to 'back', root_path %>
+
 

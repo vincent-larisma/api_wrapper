@@ -1,28 +1,31 @@
 class NasaApi::Client
-  BASE_URL = 'https://api.nasa.gov'
-  API_KEY = 'VxQfdK5XlsfAXY0UFcr2CJFAhmZh8f7BIv2vx7Ez'
+  BASE_URL = 'https://api.nasa.gov'.freeze
+  API_KEY = 'VxQfdK5XlsfAXY0UFcr2CJFAhmZh8f7BIv2vx7Ez'.freeze
 
   def astronomy_picture
-    connection = Faraday.new(url: BASE_URL, params: { api_key: API_KEY, count: rand(20) })
-    response = connection.get('planetary/apod')
-    JSON.parse(response.body)
+    request('planetary/apod', { count: rand(20) })
   end
 
   def tech_transfer
-    connection = Faraday.new(url: BASE_URL, params: { api_key: API_KEY })
-    response = connection.get('techtransfer/patent/?engine')
-    JSON.parse(response.body)
+    request('techtransfer/patent/?engine')
   end
 
   def neo_browse
-    connection = Faraday.new(url: BASE_URL, params: { api_key: API_KEY })
-    response = connection.get('/neo/rest/v1/neo/browse?')
-    JSON.parse(response.body)['near_earth_objects']
+    request('/neo/rest/v1/neo/browse?')
   end
 
   def neo_search(id)
-    connection = Faraday.new(url: BASE_URL, params: { api_key: API_KEY })
-    response = connection.get("/neo/rest/v1/neo/#{id}?")
+    request("/neo/rest/v1/neo/#{id}?")
+  end
+
+  private
+
+  def request(endpoint, params = {})
+    response = connection.send('get', endpoint) { |request| params.each { |k, v| request.params[k] = v } }
     JSON.parse(response.body)
+  end
+
+  def connection
+    @connection ||= Faraday.new(url: BASE_URL, params: { api_key: API_KEY })
   end
 end
