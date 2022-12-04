@@ -1,10 +1,18 @@
-<h1>Tech Transfer</h1>
-<%= link_to 'back', root_path %>
+<div class="container content">
+    <div class="columns">
+        <div class="column">
+            <h1>Tech Transfer</h1>
+            <%= button_to 'back', root_path, class: 'button is-primary', method: :get %>
+        </div>
+    </div>
+    <div class="columns is-multiline">
+           <% @tech_transfer['results'].each do |tech| %>
+                <div class="column is-4">
+                    <img src="<%= tech[-3] %>" alt="tech transfer">
+                </div>
+        <% end %>
+    </div>
+</div>
 
-<% @tech_transfer['results'][0..3].each do |tech| %>
-    <p>
-        <img src="<%= tech[-3] %>" alt="tech transfer">
-    </p>
-<% end %>
 
 

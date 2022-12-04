@@ -1,6 +1,13 @@
 class NasaApi::Client
-  BASE_URL = 'https://api.nasa.gov'.freeze
-  API_KEY = 'VxQfdK5XlsfAXY0UFcr2CJFAhmZh8f7BIv2vx7Ez'.freeze
+  class NasaApiError < StandardError; end
+  class AsteroidIdNotFound < NasaApiError; end
+
+  BASE_URL = Rails.application.credentials.nasa[:nasa_base_url]
+  API_KEY = Rails.application.credentials.nasa[:nasa_api_key]
+
+  ERROR_CODES = {
+    404 => AsteroidIdNotFound
+  }
 
   def astronomy_picture
     request('planetary/apod', { count: rand(20) })
@@ -22,7 +29,9 @@ class NasaApi::Client
 
   def request(endpoint, params = {})
     response = connection.send('get', endpoint) { |request| params.each { |k, v| request.params[k] = v } }
-    JSON.parse(response.body)
+    return JSON.parse(response.body) if response.success?
+    raise ERROR_CODES[response.status]
+
   end
 
   def connection

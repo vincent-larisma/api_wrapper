@@ -1,10 +1,28 @@
-<h1> Astronomy Random Picture by NASA api </h1>
+<div class="container content">
+    <div class="columns">
+        <div class="column">
+            <h1> Astronomy Random Picture by NASA api </h1>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <img src=<%= @astronomy[0]['hdurl'] %> alt="astronomy picture">
+        </div>
+    </div>
 
-<img src=<%= @astronomy[0]['hdurl'] %> alt="astronomy picture">
-<div>
-    <h5>Caption:</h5>
-    <p><%= @astronomy[0]['explanation'] %></p>
+    <div class="columns">
+        <div class="column">
+            <h5>Caption:</h5>
+            <p><%= @astronomy[0]['explanation'] %></p>
+        
+             <%= button_to 'back', root_path, class: 'button is-primary', method: :get %>
+        </div>
+    </div>
 </div>
-<%= link_to 'back', root_path %>
+
+
+
+
+
 
 

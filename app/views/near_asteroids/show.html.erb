@@ -1,13 +1,20 @@
-<h1><%= @asteroid_info['name'] %></h1>
+<div class="container content">
+    <div class="columns">
+        <div class="column">
+            <h1><%= @asteroid_info['name'] %></h1>
+            <h4>Close Approach Date</h4>
+                <% @asteroid_info['close_approach_data'].each do |approach_date| %>
+                    <ul>
+                        <li>
+                            <%= approach_date['close_approach_date_full'] %>
+                        </li>
+                    </ul>
+                <% end %>
 
-<h4>Close Approach Date</h4>
-    <% @asteroid_info['close_approach_data'].each do |approach_date| %>
-        <ul>
-            <li>
-                <%= approach_date['close_approach_date_full'] %>
-            </li>
-        </ul>
-    <% end %>
+            <%= button_to 'back', near_asteroids_path, class: 'button is-primary', method: :get %>
+        </div>
+    </div>
+</div>
 
-<%= link_to 'back', near_asteroids_path %>
+
 

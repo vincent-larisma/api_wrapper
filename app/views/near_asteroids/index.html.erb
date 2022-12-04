@@ -1,9 +1,17 @@
-<h1>NearAsteroids</h1>
-    <% @neo_browse['near_earth_objects'].each do |asteroid_name| %>
-        <ul>
-            <li>
-                <%=link_to asteroid_name['name'], near_asteroid_path(asteroid_name['neo_reference_id']) %>
-            </li>
-        </ul>
-    <% end %>
-<%= link_to 'back', root_path %>
+<div class="container content">
+    <div class="columns">
+        <div class="column">
+            <h1>NearAsteroids</h1>
+            <% @neo_browse['near_earth_objects'].each do |asteroid_name| %>
+                <ul>
+                    <li>
+                        <%=link_to asteroid_name['name'], near_asteroid_path(asteroid_name['neo_reference_id']) %>
+                    </li>
+                </ul>
+            <% end %>
+            <%= button_to 'back', root_path, class: 'button is-primary', method: :get %>
+        </div>
+    </div>
+</div>
+
+
