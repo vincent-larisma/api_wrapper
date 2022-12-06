@@ -28,13 +28,14 @@ class NasaApi::Client
   private
 
   def request(endpoint, params = {})
-    response = connection.send('get', endpoint) { |request| params.each { |k, v| request.params[k] = v } }
+    params = params.merge(api_key: API_KEY)
+    response = connection.send('get', endpoint, params) 
     return JSON.parse(response.body) if response.success?
     raise ERROR_CODES[response.status]
 
   end
 
   def connection
-    @connection ||= Faraday.new(url: BASE_URL, params: { api_key: API_KEY })
+    @connection ||= Faraday.new(url: BASE_URL)
   end
 end
